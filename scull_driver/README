@@ -1,3 +1,26 @@
+# Compiling environment
+
 OS: Elementary OS 5.0 64-bit
 Compiler: gcc version 7.3.0
 Linux core: version 4.15.0-36-generic
+
+# Running the driver & test app
+
+1.  $cd /..../scull_driver
+    $make
+
+2.  $./mkdev.sh
+    $cat /proc/devices | grep "scull" #check whether the driver is installed
+    or: $ls /dev/scull -l
+
+# Testing the driver
+
+Method 1:
+    $dd if=testfile of=/dev/scull    bs=15K   //write the content of testfile to scull
+    $cp testfile /dev/scull                   //copy the content of testfile to scull
+    $dd if=/dev/scull of=temp                 //read back and store in temp
+
+Method 2:
+    $cd /.../scull_test
+    $make    //Compile
+    $./scull_test 10
