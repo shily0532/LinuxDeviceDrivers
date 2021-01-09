@@ -15,7 +15,8 @@ fi
 sudo insmod $module.ko
 devid=`cat /proc/devices | grep $device | awk '{print $device}'`
 echo $devid
-major=$(awk "\\$2= =\"$module\" {print \\$1}" /proc/devices)
+major=$(awk "\$2==\"$device\" {print \$1}" /proc/devices)
+echo "am i right?"
 echo $major
 
 if [ -e "/dev/$device" ]; then
@@ -26,4 +27,4 @@ else
 	echo "there"
 fi
 
-sudo mknod /dev/$device c $devid 0
+sudo mknod /dev/$device c $major 0
