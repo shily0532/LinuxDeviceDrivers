@@ -23,4 +23,4 @@ Method 1:
 Method 2:
     $cd /.../scull_test
     $make    //Compile
-    $sudo ./scull_test 10
+    $./scull_test 10
