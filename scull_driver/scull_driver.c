@@ -103,11 +103,11 @@ ssize_t scull_read(struct file *filp, char __user *buf, size_t count, loff_t *f_
     if (down_interruptible(&dev->sem)) // P function
         return -ERESTARTSYS;
 
-    if(*f_pos >= dev->size) // if current read pos is greater than device size, return
+    if(*f_pos >= USER_BUFF_SIZE) // if current read pos is greater than device size, return
         goto out;           // which means there's no data available
 
-    if(*f_pos + count > dev->size)  // only read the left part
-        count = dev->size - *f_pos;
+    if(*f_pos + count > USER_BUFF_SIZE)  // only read the left part
+        count = USER_BUFF_SIZE - *f_pos;
 
     if( !dev->user_buff )   // user buffer is empty/uninitialize
         goto out;
@@ -181,7 +181,7 @@ loff_t scull_llseek(struct file *filp, loff_t off, int whence)
             newpos = filp->f_pos + off;
             break;
         case 2:
-            newpos = *f_pos + off;
+            newpos = USER_BUFF_SIZE + off;
             break;
         default:
             return -EINVAL;
