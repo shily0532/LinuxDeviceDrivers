@@ -63,11 +63,8 @@ static DECLARE_WAIT_QUEUE_HEAD(port_in_queue);
 //全局变量、常量定义:
 ---------------------------------------------------------*/
 #define FPGA_NAME		"port"
-#define DRV_NAME_LEN	15
 
 int		port_major = 0;
-
-static char _gdrv_name[DRV_NAME_LEN] = "undefined";
 
 static struct class *port_class = NULL;
 
