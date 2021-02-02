@@ -26,19 +26,12 @@ Note:
     $make
 
 2.  $./mkdev.sh
-    $cat /proc/devices | grep "scull" #check whether the driver is installed
-    or: $ls /dev/scull -l
+    $cat /proc/devices | grep "port" #check whether the driver is installed
+    or: $ls /dev/port -l
 
 # Testing the driver
 
-Method 1:
-    $dd if=testfile of=/dev/scull    bs=15K   //write the content of testfile to scull
-    $cp testfile /dev/scull                   //copy the content of testfile to scull
-    $dd if=/dev/scull of=temp                 //read back and store in temp
-
-Method 2:
-    $cd /.../scull_test
-    $make    //Compile
-    $sudo ./scull_test 10
+    $cd ./FPGA_test
+    $./testPortIN
 
 
