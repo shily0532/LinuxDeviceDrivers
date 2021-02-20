@@ -66,6 +66,8 @@ static DECLARE_WAIT_QUEUE_HEAD(port_in_queue);
 
 int		port_major = 0;
 
+static struct class *port_class = NULL;
+
 static unsigned int PortLen=0x400;
 
 //设备指针
@@ -228,6 +230,10 @@ static int __init port_init(void)
 		return ret;
 	}
 
+	
+	port_class = class_create(THIS_MODULE, FPGA_NAME);
+	device_create(port_class, NULL, devt, NULL, FPGA_NAME); /* add module to /dev/port */
+
     return ret;
 }
 
@@ -245,6 +251,8 @@ static void __exit port_cleanup(void)
 	}
 		
 	cdev_del(&port_chrdev);
+
+	class_destroy(port_class);
 
 	unregister_chrdev_region(MKDEV(port_major, 0), 1);
 
